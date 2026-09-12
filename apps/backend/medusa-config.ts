@@ -3,6 +3,18 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 const paymentProviders: Array<Record<string, unknown>> = []
+const notificationProviders: Array<Record<string, unknown>> = []
+
+if (process.env.SENDGRID_API_KEY && process.env.SENDGRID_FROM) {
+  notificationProviders.push({
+    resolve: "@medusajs/medusa/notification-sendgrid",
+    id: "sendgrid",
+    options: {
+      api_key: process.env.SENDGRID_API_KEY,
+      from: process.env.SENDGRID_FROM,
+    },
+  })
+}
 
 if (process.env.TBANK_TERMINAL_KEY && process.env.TBANK_PASSWORD) {
   paymentProviders.push({
@@ -26,6 +38,9 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET,
       cookieSecret: process.env.COOKIE_SECRET,
+      authVerificationsPerActor: {
+        customer: [{ entity_type: "email", auth_provider: "emailpass" }],
+      },
     }
   },
   modules: [
@@ -33,6 +48,12 @@ module.exports = defineConfig({
       resolve: "@medusajs/medusa/payment",
       options: {
         providers: paymentProviders,
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: notificationProviders,
       },
     },
   ],

@@ -23,25 +23,28 @@ const StoreTemplate = ({
 
   return (
     <div
-      className="content-container flex flex-col py-10 small:flex-row small:items-start small:py-16"
+      className="content-container flex flex-col py-8 small:flex-row small:items-start small:py-16"
       data-testid="category-container"
     >
       <RefinementList sortBy={sort} />
       <div className="w-full">
-        <div className="mb-8 flex items-end justify-between gap-4 border-b border-black/10 pb-5">
+        <div className="mb-10 flex flex-col gap-6 border-b border-black/10 pb-6 small:flex-row small:items-end small:justify-between">
           <div>
-            <span className="mb-2 block text-[10px] uppercase tracking-[0.14em] text-ui-fg-subtle">
-              Каталог / 01
+            <span className="mb-3 block text-[10px] uppercase tracking-[0.14em] text-black/55">
+              Каталог / коллекция 01
             </span>
             <h1
-              className="text-3xl font-semibold uppercase tracking-[-0.04em] small:text-5xl"
+              className="text-4xl font-semibold uppercase leading-[0.9] tracking-[-0.05em] small:text-7xl"
               data-testid="store-page-title"
             >
-              Все товары
+              Мерч СУНЦ
             </h1>
+            <p className="mt-5 max-w-md text-sm leading-5 text-black/60">
+              Одежда и вещи с характером сообщества СУНЦ УрФУ.
+            </p>
           </div>
-          <span className="hidden text-xs uppercase tracking-[0.1em] text-ui-fg-subtle small:block">
-            SS / 25
+          <span className="text-[10px] uppercase tracking-[0.14em] text-black/55 small:block">
+            SS / 25 · Екатеринбург
           </span>
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>

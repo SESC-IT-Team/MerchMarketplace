@@ -17,26 +17,41 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
+      <header className="relative mx-auto border-b border-black/10 bg-[#f3f1eb] duration-200">
+        <nav className="content-container flex min-h-[72px] w-full items-center justify-between gap-5 text-[11px] uppercase tracking-[0.08em] text-[#171717]">
+          <div className="flex h-full flex-1 basis-0 items-center">
             <div className="h-full">
               <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
             </div>
-          </div>
-
-          <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="ml-6 text-base font-black tracking-[-0.04em] hover:text-black/60"
               data-testid="nav-store-link"
             >
               SUNZ URFU
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+          <div className="hidden items-center gap-8 small:flex">
+            <LocalizedClientLink className="hover:text-black/60" href="/store">
+              Каталог
+            </LocalizedClientLink>
+            <LocalizedClientLink className="hover:text-black/60" href="/#about">
+              О СУНЦ УрФУ
+            </LocalizedClientLink>
+            <LocalizedClientLink className="hover:text-black/60" href="/#audience">
+              Для кого
+            </LocalizedClientLink>
+          </div>
+
+          <div className="flex h-full flex-1 basis-0 items-center justify-end gap-3">
+            <LocalizedClientLink
+              href="/cart"
+              className="hidden min-h-10 items-center bg-[#d8ff38] px-4 font-semibold hover:bg-black hover:text-white small:inline-flex"
+            >
+              Оформить заказ
+            </LocalizedClientLink>
+            <div className="hidden items-center gap-x-6 small:flex">
               <LocalizedClientLink
                 className="hover:text-ui-fg-base"
                 href="/account"
