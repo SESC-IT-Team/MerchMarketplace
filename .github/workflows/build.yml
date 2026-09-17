@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches: [dev, main, prod]
+
+jobs:
+  backend:
+    uses: SESC-IT-Team/Merch-IaC/.github/workflows/build-and-push-image.yml@prod
+    with:
+      image-name: merch-backend
+      context: apps/backend
+      dockerfile: Dockerfile
+      deploy-app: merch-marketplace
+      image-path: backend.image.tag
+    secrets:
+      iac-repo-pat: ${{ secrets.IAC_REPO_PAT }}
+
+  storefront:
+    uses: SESC-IT-Team/Merch-IaC/.github/workflows/build-and-push-image.yml@prod
+    with:
+      image-name: merch-storefront
+      context: apps/storefront
+      dockerfile: Dockerfile
+      deploy-app: merch-marketplace
+      image-path: storefront.image.tag
+      # NEXT_PUBLIC_* переменные инлайнятся в бандл на этапе сборки образа
+      build-args: |
+        MEDUSA_BACKEND_URL=http://merch-backend:9000
+        NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://api.merch.sesc-it-team.ru
+        NEXT_PUBLIC_DEFAULT_REGION=ru
+        NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=${{ vars.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY }}
+    secrets:
+      iac-repo-pat: ${{ secrets.IAC_REPO_PAT }}
