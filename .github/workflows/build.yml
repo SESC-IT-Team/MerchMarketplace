@@ -13,6 +13,8 @@ jobs:
       dockerfile: Dockerfile
       deploy-app: merch-marketplace
       image-path: backend.image.tag
+      dev-deploy-app: merch-marketplace-dev
+      dev-image-path: merch-marketplace.backend.image.tag
     secrets:
       iac-repo-pat: ${{ secrets.IAC_REPO_PAT }}
 
@@ -24,11 +26,18 @@ jobs:
       dockerfile: Dockerfile
       deploy-app: merch-marketplace
       image-path: storefront.image.tag
+      dev-deploy-app: merch-marketplace-dev
+      dev-image-path: merch-marketplace.storefront.image.tag
       # NEXT_PUBLIC_* переменные инлайнятся в бандл на этапе сборки образа
       build-args: |
         MEDUSA_BACKEND_URL=http://merch-backend:9000
         NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://api.merch.sesc-it-team.ru
         NEXT_PUBLIC_DEFAULT_REGION=ru
         NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=${{ vars.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY }}
+      dev-build-args: |
+        MEDUSA_BACKEND_URL=http://merch-backend:9000
+        NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://api.merch-dev.sesc-it-team.ru
+        NEXT_PUBLIC_DEFAULT_REGION=ru
+        NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=${{ vars.NEXT_PUBLIC_MEDUSA_DEV_PUBLISHABLE_KEY }}
     secrets:
       iac-repo-pat: ${{ secrets.IAC_REPO_PAT }}
