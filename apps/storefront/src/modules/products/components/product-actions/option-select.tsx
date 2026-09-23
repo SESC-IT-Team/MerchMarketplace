@@ -28,7 +28,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
         <span className="text-ui-fg-subtle">{current || "Выберите"}</span>
       </div>
       <div
-        className="grid grid-cols-2 gap-2"
+        className="flex flex-wrap gap-3"
         data-testid={dataTestId}
       >
         {filteredOptions.map((v) => {
@@ -37,10 +37,10 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               onClick={() => updateOption(option.id, v)}
               key={v}
               className={clx(
-                "border border-black/20 bg-transparent px-3 py-3 text-left text-xs uppercase transition-colors",
+                "flex h-11 min-w-11 items-center justify-center rounded-[15px] border bg-white px-3 text-xs uppercase transition-colors hover:border-[#2a9533] disabled:cursor-not-allowed disabled:opacity-50",
                 {
-                  "border-black bg-black text-white": v === current,
-                  "hover:border-black": v !== current,
+                  "border-[#2a9533] font-semibold text-[#2a9533]": v === current,
+                  "border-black/20 text-[#181818]": v !== current,
                 }
               )}
               disabled={disabled}

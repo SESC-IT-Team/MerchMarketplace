@@ -37,8 +37,8 @@ services:
       STORE_CORS: ${STORE_CORS:-http://localhost:8000}
       ADMIN_CORS: ${ADMIN_CORS:-http://localhost:9000}
       AUTH_CORS: ${AUTH_CORS:-http://localhost:8000,http://localhost:9000}
-      JWT_SECRET: ${JWT_SECRET:-replace-me}
-      COOKIE_SECRET: ${COOKIE_SECRET:-replace-me}
+      JWT_SECRET: ${JWT_SECRET:-local-development-jwt-secret-change-me-2026}
+      COOKIE_SECRET: ${COOKIE_SECRET:-local-development-cookie-secret-change-me-2026}
     depends_on:
       postgres:
         condition: service_healthy
@@ -53,13 +53,13 @@ services:
       args:
         MEDUSA_BACKEND_URL: http://backend:9000
         NEXT_PUBLIC_MEDUSA_BACKEND_URL: ${NEXT_PUBLIC_MEDUSA_BACKEND_URL:-http://localhost:9000}
-        NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY:-}
         NEXT_PUBLIC_DEFAULT_REGION: ${NEXT_PUBLIC_DEFAULT_REGION:-ru}
+    env_file:
+      - ./apps/storefront/.env
     environment:
       NODE_ENV: production
       MEDUSA_BACKEND_URL: http://backend:9000
       NEXT_PUBLIC_MEDUSA_BACKEND_URL: ${NEXT_PUBLIC_MEDUSA_BACKEND_URL:-http://localhost:9000}
-      NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: ${NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY:-}
       NEXT_PUBLIC_DEFAULT_REGION: ${NEXT_PUBLIC_DEFAULT_REGION:-ru}
       NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:-http://localhost:8000}
     depends_on:

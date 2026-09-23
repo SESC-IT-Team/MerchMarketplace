@@ -32,25 +32,37 @@ export default async function ProductPreview({
       href={`/products/${product.handle}`}
       className="group block"
     >
-      <div data-testid="product-wrapper" className="sunz-product-card">
+      <article
+        data-testid="product-wrapper"
+        className="sunz-product-card flex h-full flex-col"
+      >
         <Thumbnail
           thumbnail={product.thumbnail}
           images={product.images}
           size="full"
           isFeatured={isFeatured}
+          className="aspect-[356/334] rounded-[20px] bg-white p-0 shadow-none"
         />
-        <div className="mt-4 flex items-start justify-between gap-3">
+        <div className="mt-4 flex flex-1 flex-col">
           <Text
-            className="max-w-[70%] text-xs uppercase leading-4 tracking-[0.04em] text-ui-fg-base"
+            className="max-w-[92%] text-xl font-bold uppercase leading-[1.08] tracking-[-0.02em] text-[#181818]"
             data-testid="product-title"
           >
             {product.title}
           </Text>
-          <div className="text-right text-xs font-semibold uppercase leading-4 tracking-[0.04em] text-ui-fg-base">
+          <div className="mt-3 text-2xl font-medium leading-7 text-[#181818]">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            <span className="flex min-h-10 items-center justify-center rounded-[17px] border border-[#2a9533] px-2 text-center text-[11px] font-semibold uppercase leading-4 text-[#2a9533] transition-colors group-hover:bg-[#2a9533] group-hover:text-white">
+              Перейти в каталог
+            </span>
+            <span className="flex min-h-10 items-center justify-center rounded-[17px] bg-[#2a9533] px-2 text-center text-[11px] font-semibold uppercase leading-4 text-white transition-colors group-hover:bg-[#247b2c]">
+              В корзину
+            </span>
+          </div>
         </div>
-      </div>
+      </article>
     </LocalizedClientLink>
   )
 }

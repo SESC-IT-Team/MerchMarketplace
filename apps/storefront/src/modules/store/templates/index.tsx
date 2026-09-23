@@ -23,28 +23,28 @@ const StoreTemplate = ({
 
   return (
     <div
-      className="content-container flex flex-col py-8 small:flex-row small:items-start small:py-16"
+      className="content-container flex flex-col gap-8 bg-[#ededed] py-8 small:gap-12 small:py-16"
       data-testid="category-container"
     >
       <RefinementList sortBy={sort} />
       <div className="w-full">
-        <div className="mb-10 flex flex-col gap-6 border-b border-black/10 pb-6 small:flex-row small:items-end small:justify-between">
+        <div className="mb-10 flex flex-col gap-6 border-b border-[#181818]/15 pb-8 small:flex-row small:items-end small:justify-between">
           <div>
-            <span className="mb-3 block text-[10px] uppercase tracking-[0.14em] text-black/55">
-              Каталог / коллекция 01
+            <span className="mb-4 block text-[11px] font-semibold uppercase tracking-[0.12em] text-[#2a9533]">
+              СУНЦ УрФУ / мерч
             </span>
             <h1
-              className="text-4xl font-semibold uppercase leading-[0.9] tracking-[-0.05em] small:text-7xl"
+              className="font-sans text-4xl font-bold uppercase leading-[0.95] tracking-[-0.03em] text-[#181818] small:text-7xl"
               data-testid="store-page-title"
             >
-              Мерч СУНЦ
+              Весь каталог
             </h1>
-            <p className="mt-5 max-w-md text-sm leading-5 text-black/60">
+            <p className="mt-5 max-w-md text-sm leading-6 text-[#181818]/65">
               Одежда и вещи с характером сообщества СУНЦ УрФУ.
             </p>
           </div>
-          <span className="text-[10px] uppercase tracking-[0.14em] text-black/55 small:block">
-            SS / 25 · Екатеринбург
+          <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#181818]/55 small:block">
+            Коллекция 01 / 16 позиций
           </span>
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>

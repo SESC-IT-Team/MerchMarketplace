@@ -351,6 +351,12 @@ export default async function initial_data_seed({
           ],
           description:
             "Reimagine the feeling of a classic T-shirt. With our cotton T-shirts, everyday essentials no longer have to be ordinary.",
+          metadata: {
+            composition: "100% хлопок",
+            care: "Машинная стирка при 30°C",
+            size_chart: "Размерная сетка будет добавлена позже",
+            reviews_count: 0,
+          },
           handle: "t-shirt",
           weight: 400,
           status: ProductStatus.PUBLISHED,
@@ -532,6 +538,12 @@ export default async function initial_data_seed({
           ],
           description:
             "Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary.",
+          metadata: {
+            composition: "100% хлопок",
+            care: "Машинная стирка при 30°C",
+            size_chart: "Размерная сетка будет добавлена позже",
+            reviews_count: 0,
+          },
           handle: "sweatshirt",
           weight: 400,
           status: ProductStatus.PUBLISHED,
@@ -628,6 +640,12 @@ export default async function initial_data_seed({
           ],
           description:
             "Reimagine the feeling of classic sweatpants. With our cotton sweatpants, everyday essentials no longer have to be ordinary.",
+          metadata: {
+            composition: "100% хлопок",
+            care: "Машинная стирка при 30°C",
+            size_chart: "Размерная сетка будет добавлена позже",
+            reviews_count: 0,
+          },
           handle: "sweatpants",
           weight: 400,
           status: ProductStatus.PUBLISHED,
@@ -724,6 +742,12 @@ export default async function initial_data_seed({
           ],
           description:
             "Reimagine the feeling of classic shorts. With our cotton shorts, everyday essentials no longer have to be ordinary.",
+          metadata: {
+            composition: "100% хлопок",
+            care: "Машинная стирка при 30°C",
+            size_chart: "Размерная сетка будет добавлена позже",
+            reviews_count: 0,
+          },
           handle: "shorts",
           weight: 400,
           status: ProductStatus.PUBLISHED,

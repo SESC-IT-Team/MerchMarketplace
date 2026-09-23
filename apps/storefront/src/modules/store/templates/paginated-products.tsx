@@ -73,7 +73,7 @@ export default async function PaginatedProducts({
   return (
     <>
       <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        className="grid w-full grid-cols-1 gap-x-6 gap-y-12 xsmall:grid-cols-2 medium:grid-cols-4 medium:gap-y-16"
         data-testid="products-list"
       >
         {products.map((p) => {

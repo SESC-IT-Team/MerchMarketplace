@@ -37,6 +37,7 @@ export default function ProductActions({
   const searchParams = useSearchParams()
 
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
+  const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const countryCode = useParams().countryCode as string
 
@@ -66,6 +67,10 @@ export default function ProductActions({
       [optionId]: value,
     }))
   }
+
+  const colorOption = product.options?.find((option) =>
+    option.title?.toLowerCase().includes("color")
+  )
 
   //check if the selected options produce a valid variant
   const isValidVariant = useMemo(() => {
@@ -128,7 +133,7 @@ export default function ProductActions({
 
     await addToCart({
       variantId: selectedVariant.id,
-      quantity: 1,
+      quantity,
       countryCode,
     })
 
@@ -140,27 +145,86 @@ export default function ProductActions({
       <div className="flex flex-col gap-y-2" ref={actionsRef}>
         <div>
           {(product.variants?.length ?? 0) > 1 && (
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-wrap items-start gap-x-5 gap-y-4">
               {(product.options || []).map((option) => {
+                const isColor = option.id === colorOption?.id
+
                 return (
-                  <div key={option.id}>
-                    <OptionSelect
-                      option={option}
-                      current={options[option.id]}
-                      updateOption={setOptionValue}
-                      title={option.title ?? ""}
-                      data-testid="product-options"
-                      disabled={!!disabled || isAdding}
-                    />
+                  <div key={option.id} className="min-w-0 flex-1 basis-[145px]">
+                    {isColor ? (
+                      <div className="flex flex-col gap-y-3">
+                        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.12em]">
+                          <span>Цвет</span>
+                          <span className="text-ui-fg-subtle">{options[option.id] || "Выберите"}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-3" data-testid="product-color-options">
+                          {(option.values ?? []).map((value) => {
+                            const color = value.value?.toLowerCase() === "white" ? "#ffffff" : "#181818"
+
+                            return (
+                              <button
+                                key={value.value}
+                                type="button"
+                                onClick={() => setOptionValue(option.id, value.value)}
+                                disabled={!!disabled || isAdding}
+                                className={`h-10 w-10 rounded-full border-2 p-1 transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 ${
+                                  options[option.id] === value.value ? "border-[#2a9533]" : "border-transparent"
+                                }`}
+                                aria-label={`Цвет ${value.value}`}
+                                aria-pressed={options[option.id] === value.value}
+                              >
+                                <span
+                                  className="block h-full w-full rounded-full border border-black/20"
+                                  style={{ backgroundColor: color }}
+                                />
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <OptionSelect
+                        option={option}
+                        current={options[option.id]}
+                        updateOption={setOptionValue}
+                        title={option.title ?? ""}
+                        data-testid="product-options"
+                        disabled={!!disabled || isAdding}
+                      />
+                    )}
                   </div>
                 )
               })}
-              <Divider className="bg-black/10" />
             </div>
           )}
         </div>
 
-        <ProductPrice product={product} variant={selectedVariant} />
+        <div className="flex items-center justify-between border-y border-black/10 py-4">
+          <span className="text-[10px] uppercase tracking-[0.12em]">Количество</span>
+          <div className="flex items-center border border-black/20">
+            <button
+              type="button"
+              onClick={() => setQuantity((current) => Math.max(1, current - 1))}
+              disabled={isAdding || quantity === 1}
+              className="flex h-10 w-10 items-center justify-center text-lg disabled:cursor-not-allowed disabled:opacity-30"
+              aria-label="Уменьшить количество"
+            >
+              -
+            </button>
+            <span className="flex h-10 w-10 items-center justify-center text-sm" aria-live="polite">
+              {quantity}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQuantity((current) => current + 1)}
+              disabled={isAdding}
+              className="flex h-10 w-10 items-center justify-center text-lg disabled:cursor-not-allowed disabled:opacity-30"
+              aria-label="Увеличить количество"
+            >
+              +
+            </button>
+          </div>
+        </div>
 
         <Button
           onClick={handleAddToCart}
@@ -176,8 +240,8 @@ export default function ProductActions({
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {!selectedVariant && !options
-            ? "Выберите вариант"
+          {!selectedVariant
+            ? "Выберите цвет и размер"
             : !inStock || !isValidVariant
             ? "Нет в наличии"
             : "Добавить в корзину"}
